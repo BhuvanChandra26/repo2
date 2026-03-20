@@ -11,4 +11,5 @@ git pull
 git branch <Branch name>
 git branch -a
 git checkout -b <branch name>
+{Changes made from branch}
 {i have Made changes}
