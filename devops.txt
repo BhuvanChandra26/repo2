@@ -1,0 +1,14 @@
+git clone <ssh link>
+(To link git hub add public key to deploy key)
+(Add public key path to config file)
+cd ~/.ssh
+vm config
+
+git add 
+git commit -""
+git push
+git pull
+git branch <Branch name>
+git branch -a
+git checkout -b <branch name>
+
