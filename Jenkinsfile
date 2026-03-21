@@ -2,34 +2,56 @@ pipeline {
     agent any
 
     stages {
-        stage('Start') {
+        stage('Checkout') {
             steps {
-                echo "Pipeline Started"
+                echo "Checking out source code"
+                checkout scm
             }
         }
 
-        stage('Build') {
+        stage('Dev - Compile') {
             steps {
-                echo "Running Build Stage..."
+                echo "DEV: Compiling Hello.java"
+                sh '''
+                    set -e
+                    javac Hello.java
+                '''
             }
         }
 
-        stage('Test') {
+        stage('Dev - Run') {
             steps {
-                echo "Executing Tests..."
+                echo "DEV: Running app (prints Hello, World!)"
+                sh 'java Hello'
+            }
+        }
+
+        stage('Test - Sanity') {
+            steps {
+                echo "TEST: Verifying output"
+                sh '''
+                    set -e
+                    OUT=$(java Hello)
+                    echo "Output: $OUT"
+                    if [ "$OUT" != "Hello, World!" ]; then
+                      echo "Unexpected output in TEST stage"
+                      exit 2
+                    fi
+                '''
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "Deploying Application..."
+                echo "DEPLOY: Simulating deploy (running app again)"
+                sh 'java Hello'
             }
         }
     }
 
     post {
         always {
-            echo "Pipeline Finished"
+            echo "Pipeline Finished (Dev → Test → Deploy)."
         }
     }
 }
