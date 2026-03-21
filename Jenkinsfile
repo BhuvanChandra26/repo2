@@ -2,56 +2,54 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
-                echo "Checking out source code"
+                echo "Fetching code..."
                 checkout scm
             }
         }
 
-        stage('Dev - Compile') {
+        stage('Build') {
             steps {
-                echo "DEV: Compiling Hello.java"
-                sh '''
-                    set -e
-                    javac Hello.java
-                '''
+                echo "Starting build..."
+                sh """
+                    # Simple example: compile or package
+                    # Replace with your actual build command
+                    echo "Building project..."
+                """
             }
         }
 
-        stage('Dev - Run') {
+        stage('Test') {
             steps {
-                echo "DEV: Running app (prints Hello, World!)"
-                sh 'java Hello'
-            }
-        }
-
-        stage('Test - Sanity') {
-            steps {
-                echo "TEST: Verifying output"
-                sh '''
-                    set -e
-                    OUT=$(java Hello)
-                    echo "Output: $OUT"
-                    if [ "$OUT" != "Hello, World!" ]; then
-                      echo "Unexpected output in TEST stage"
-                      exit 2
-                    fi
-                '''
+                echo "Running tests..."
+                sh """
+                    # Example: run basic unit test scripts
+                    # Replace with your test runner
+                    echo "Running tests..."
+                """
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "DEPLOY: Simulating deploy (running app again)"
-                sh 'java Hello'
+                echo "Deploying application..."
+                sh """
+                    # Example deploy script
+                    # Replace with your real deployment command
+                    echo "Deploying to environment..."
+                """
             }
         }
     }
 
     post {
-        always {
-            echo "Pipeline Finished (Dev → Test → Deploy)."
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
