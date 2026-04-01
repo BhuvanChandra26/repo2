@@ -36,35 +36,34 @@
 //     }
 // }
 
-
-
 pipeline {
-    agent any
-    environment {
-        SCANNER_HOME = tool 'SonarScanner'
-    }
+    agent any
 
+    environment {
+        SCANNER_HOME = tool 'SonarScanner'
+    }
 
-    stages {
+    stages {
 
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/BhuvanChandra26/repo2.git'
-            }
-        }
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/BhuvanChandra26/repo2.git'
+            }
+        }
 
-       stage('SonarQube Analysis') {
-         steps {
-           withSonarQubeEnv('SonarQube') {
-            sh """
-               ${SONAR_SCANNER}/bin/sonar-scanner \
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh """
+                        ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=repo2 \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=http://localhost:9000 \
                         -Dsonar.login=sqp_9bb753cd51113b98c02e2515289241f5ed9f1486
-            """
-        }
-    }
+                    """
+                }
+            }
+        }
+    }
 }
-}}
