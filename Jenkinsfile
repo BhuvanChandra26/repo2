@@ -40,18 +40,12 @@
 
 pipeline {
     agent any
-
- 
-
     environment {
         SCANNER_HOME = tool 'SonarScanner'
     }
 
- 
 
     stages {
-
- 
 
         stage('Checkout') {
             steps {
@@ -60,11 +54,9 @@ pipeline {
             }
         }
 
- 
-
-        stage('SonarQube Analysis') {
-    steps {
-        withSonarQubeEnv('SonarQube') {
+       stage('SonarQube Analysis') {
+         steps {
+           withSonarQubeEnv('SonarQube') {
             sh """
                ${SONAR_SCANNER}/bin/sonar-scanner \
                         -Dsonar.projectKey=repo2 \
@@ -75,10 +67,4 @@ pipeline {
         }
     }
 }
-
- 
-      
-            }
-        }
-    }
 }
