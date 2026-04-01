@@ -60,7 +60,7 @@ pipeline {
                         -Dsonar.projectKey=repo2 \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.login=sqp_9bb753cd51113b98c02e2515289241f5ed9f1486
+                        -Dsonar.login=sqa_dbcc905e418a2bcf68de3f2f85fcffa60b45975e
                     """
                 }
             }
