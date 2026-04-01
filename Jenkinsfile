@@ -22,7 +22,11 @@ pipeline {
                         -Dsonar.sources=src \
                         -Dsonar.java.binaries=target \
                         -Dsonar.host.url=http://YOUR_SONAR_URL \
-                        -Dsonar.login=YOUR_TOKEN
+                        -Dsonar.login=sonar-scanner \
+  -Dsonar.projectKey=repo2 \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=sqp_9bb753cd51113b98c02e2515289241f5ed9f1486
                     """
                 }
             }
