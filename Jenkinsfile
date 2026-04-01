@@ -6,7 +6,6 @@ pipeline {
     }
 
     stages {
-
         stage('Build') {
             steps {
                 echo 'Building...'
@@ -18,15 +17,10 @@ pipeline {
                 withSonarQubeEnv('MySonarQube') {
                     sh """
                         ${SONAR_SCANNER}/bin/sonar-scanner \
-                        -Dsonar.projectKey=my-project \
-                        -Dsonar.sources=src \
-                        -Dsonar.java.binaries=target \
-                        -Dsonar.host.url=http://YOUR_SONAR_URL \
-                        -Dsonar.login=sonar-scanner \
-  -Dsonar.projectKey=repo2 \
-  -Dsonar.sources=. \
-  -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=sqp_9bb753cd51113b98c02e2515289241f5ed9f1486
+                        -Dsonar.projectKey=repo2 \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=sqp_9bb753cd51113b98c02e2515289241f5ed9f1486
                     """
                 }
             }
@@ -37,18 +31,6 @@ pipeline {
                 timeout(time: 2, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
             }
         }
     }
